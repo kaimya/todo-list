@@ -20,7 +20,8 @@ export default {
       if (this.task == "") {
         return alert("タスクを入力してください。");
       }
-      this.$store.commit('addTodo', { task: this.task, done: false });
+      // this.$store.commit('addTodo', { task: this.task, done: false });
+      this.$emit("addTodo",this.task)
       this.task = "";
     }
   }

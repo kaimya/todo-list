@@ -2,8 +2,8 @@
   <div class="col-11 mt-3">
     <div class="card">
       <div class="row p-3 align-items-center">
-        <div class="col-7" :class="{ taskCompleted: todo.done }" @dblclick="editToggle = !editToggle">
-          <input type="text" v-model="todo.task" class="form-control" v-if="editToggle" @keyup.enter="editTodo" />
+        <div class="col-7" :class="{ taskCompleted: todo.done }" @dblclick="todo.editToggle = !todo.editToggle">
+          <input type="text" v-model="todo.task" class="form-control" v-if="todo.editToggle" @keyup.enter="editTodo(todo)" />
           <span v-else>{{ todo.task }}</span>
         </div>
         <div class="col text-right">
@@ -28,15 +28,15 @@ export default {
   }),
   methods: {
     completeTodo(index) {
-      this.$store.commit("completeTodo", index);
+      this.$emit("completeTodo", index);
     },
     delTodo(index) {
-      this.$store.commit('delTodo', index);
-      // this.$emit("delTodo", index);
+      this.$emit('delTodo', index);
+     
     },
-    editTodo() {
-      this.$store.commit("editTodo", { todo: this.todo, index: this.index });
-      this.editToggle = false;
+    editTodo(todo) {
+      this.$emit("editTodo",todo);
+     
     }
   }
 };

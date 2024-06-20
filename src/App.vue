@@ -1,16 +1,9 @@
 <template>
   　　　<div id="app" class="container mt-5">
     <!-- <notifications group="foo" /> -->
-    <div class="row justify-content-center">
-      <div class="col-11">
-        <img src="./assets/logo-w.png" class="d-block mx-auto">
-        <label>新タスク</label>
-        <input type="text" class="form-control" v-model="task">
-        <button class="btn btn-dark mt-3" @click="addTodo">タスク作成</button>
-      </div>
-    </div>
+   <add-task @addTodo="addTodo"></add-task>
     <div class="row justify-content-center mt-3">
-      <div class="col-11 mt-3" v-for="(todo, index) in todos" :key="index">
+      <!-- <div class="col-11 mt-3" v-for="(todo, index) in todos" :key="index">
         <div class="card">
           <div class="row p-3 align-items-center">
           
@@ -28,35 +21,30 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
+     <todo-item  v-for="(todo,index) in todos" :key="index" :todo="todo" :index="index" @delTodo="delTodo" @completeTodo="completeTodo" @editTodo="editTodo"></todo-item>
     </div>
   </div>
 </template>
 
 <script>
-// import TodoItem from './components/TodoItem.vue';
-// import AddTask from './components/AddTask.vue';
+import TodoItem from './components/TodoItem.vue';
+import AddTask from './components/AddTask.vue';
 export default {
   name: 'App',
   components: {
-    // TodoItem,
-    // AddTask
+    TodoItem,
+    AddTask
   },
   data() {
     return {
-      task: '',
       todos: []
     }
 
   },
   methods: {
-    addTodo() {
-      
-      if (this.task == '') {
-        return alert('タスクを入れてください。');
-      }
-      this.todos.push({ task: this.task, done: false ,editToggle:false});
-      this.task = '';
+    addTodo(task) {
+      this.todos.push({ task, done: false ,editToggle:false});
     },
     delTodo(index) {
       if (confirm('削除しますか?')) {
@@ -68,8 +56,7 @@ export default {
     },
     editTodo(todo) {
       todo.editToggle=false
-      // this.$store.commit("editTodo", { todo: this.todo, index: this.index });
-      // this.editToggle = false;
+     
     }
   }
 }
