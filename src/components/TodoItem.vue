@@ -28,14 +28,14 @@ export default {
   }),
   methods: {
     completeTodo(index) {
-      this.$emit("completeTodo", index);
+      this.$store.commit("completeTodo", index);
     },
     delTodo(index) {
-      this.$emit('delTodo', index);
+      this.$store.commit('delTodo', index);
      
     },
     editTodo(todo) {
-      this.$emit("editTodo",todo);
+      this.$store.commit("editTodo",todo);
      
     }
   }
